@@ -331,4 +331,33 @@ Stack dump:
 
 ## 1.4-dev
 
+```
+****************** CLING ******************
+* Type C++ code and press enter to run it *
+*     Type .? for help and .q to exit     *
+*******************************************
+[cling]$ int f(){ int a = 0; int b = 34; return b/a;}
+[cling]$ f();
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  cling     0x00005a1b1abf6e92 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 66
+1  cling     0x00005a1b1abf4356
+2  libc.so.6 0x000077e69a245330
+3  libc.so.6 0x000077e69aaa301a
+4  libc.so.6 0x000077e69aaa5034
+5  cling     0x00005a1b1aad17e8 cling::IncrementalExecutor::executeWrapper(llvm::StringRef, cling::Value*) const + 200
+6  cling     0x00005a1b1aaeab58 cling::Interpreter::RunFunction(clang::FunctionDecl const*, cling::Value*) + 200
+7  cling     0x00005a1b1aaeb318 cling::Interpreter::EvaluateInternal(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, cling::CompilationOptions, cling::Value*, cling::Transaction**, unsigned long) + 520
+8  cling     0x00005a1b1aaeb632 cling::Interpreter::process(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, cling::Value*, cling::Transaction**, bool) + 338
+9  cling     0x00005a1b1ab3d407 cling::MetaProcessor::process(llvm::StringRef, cling::Interpreter::CompilationResult&, cling::Value*, bool) + 599
+10 cling     0x00005a1b1ac1abbf cling::UserInterface::runInteractively(bool) + 623
+11 cling     0x00005a1b1a8f2e91 main + 3073
+12 libc.so.6 0x000077e69a22a1ca
+13 libc.so.6 0x000077e69a22a28b __libc_start_main + 139
+14 cling     0x00005a1b1a9e12e5 _start + 37
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace.
+Stack dump:
+0.      Program arguments: ./bin/cling
+Floating point exception (core dumped)
+```
+
 
