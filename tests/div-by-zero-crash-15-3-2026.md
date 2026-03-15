@@ -361,3 +361,69 @@ Floating point exception (core dumped)
 ```
 
 
+* The assignment with variables:
+
+```C++
+[cling]$ const int z = 0; 
+[cling]$ 434/z
+input_line_4:2:5: warning: division by zero is undefined [-Wdivision-by-zero]
+ 434/z
+    ^~
+(int) 8                                                                                                                                                
+[cling]$ 55454/z
+input_line_6:2:7: warning: division by zero is undefined [-Wdivision-by-zero]
+ 55454/z
+      ^~
+(int) 8                                                                                                                                                
+[cling]$ const d = 35;
+input_line_7:2:8: error: a type specifier is required for all declarations
+ const d = 35;
+ ~~~~~ ^
+[cling]$ const int d = 345;                                                                                                                            
+[cling]$ d/z
+input_line_9:2:3: warning: division by zero is undefined [-Wdivision-by-zero]
+ d/z
+  ^~
+(int) 8                                                                                                                                                
+[cling]$ d/z;
+input_line_10:2:3: warning: division by zero is undefined [-Wdivision-by-zero]
+ d/z;
+  ^~
+[cling]$ int v = 3434;                                                                                                                                 
+[cling]$ v/z;
+input_line_12:2:3: warning: division by zero is undefined [-Wdivision-by-zero]
+ v/z;
+  ^~
+[cling]$ int zvar = 0;                                                                                                                                 
+[cling]$ v/zv
+input_line_14:2:4: error: use of undeclared identifier 'zv'
+ v/zv
+   ^
+[cling]$ v/zvar;                                                                                                                                       
+[cling]$ auto x = v/zvar
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  cling     0x00006069442b5e92 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 66
+1  cling     0x00006069442b3356
+2  libc.so.6 0x00007542d6645330
+3  libc.so.6 0x00007542d644e041
+4  libc.so.6 0x00007542d644e10c
+5  libc.so.6 0x00007542d644e139
+6  cling     0x0000606946e5ff3b
+7  cling     0x0000606944190a93 cling::IncrementalExecutor::runStaticInitializersOnce(cling::Transaction&) + 275
+8  cling     0x00006069441abef0 cling::Interpreter::executeTransaction(cling::Transaction&) + 48
+9  cling     0x000060694419fcaa cling::IncrementalParser::commitTransaction(llvm::PointerIntPair<cling::Transaction*, 2u, cling::IncrementalParser::EParseResult, llvm::PointerLikeTypeTraits<cling::Transaction*>, llvm::PointerIntPairInfo<cling::Transaction*, 2u, llvm::PointerLikeTypeTraits<cling::Transaction*>>>&, bool) + 794
+10 cling     0x00006069441a5229 cling::IncrementalParser::Compile(llvm::StringRef, cling::CompilationOptions const&) + 105
+11 cling     0x00006069441aa1a1 cling::Interpreter::EvaluateInternal(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, cling::CompilationOptions, cling::Value*, cling::Transaction**, unsigned long) + 145
+12 cling     0x00006069441aa632 cling::Interpreter::process(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, cling::Value*, cling::Transaction**, bool) + 338
+13 cling     0x00006069441fc407 cling::MetaProcessor::process(llvm::StringRef, cling::Interpreter::CompilationResult&, cling::Value*, bool) + 599
+14 cling     0x00006069442d9bbf cling::UserInterface::runInteractively(bool) + 623
+15 cling     0x0000606943fb1e91 main + 3073
+16 libc.so.6 0x00007542d662a1ca
+17 libc.so.6 0x00007542d662a28b __libc_start_main + 139
+18 cling     0x00006069440a02e5 _start + 37
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace.
+Stack dump:
+0.      Program arguments: ./bin/cling
+        Floating point exception (core dumped)
+```
+
