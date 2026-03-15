@@ -1,5 +1,6 @@
 ## Division by 0 in evaluated expression in a function crashes CLING?
-
+1: 1.2 (below) and
+2: 1.4-dev
 ...
 
 <pre> <font color="#4E9A06"><u style="text-decoration-style:single">sudo</u></font> <font color="#4E9A06">apt</font> list | <font color="#4E9A06">grep</font> <u style="text-decoration-style:single">cling</u>
@@ -326,3 +327,8 @@ Stack dump:
 [1]    1913261 floating point exception (core dumped)  cling
 <font color="#CC0000"><b>➜  </b></font><font color="#06989A"><b>~</b></font> 
 </pre>
+
+
+## 1.4-dev
+
+
